@@ -4,12 +4,14 @@ from parent import Account, AccountWithHistory
 
 def test_account():
     account = Account(100)
+    account.hello()
     assert account.balance == 100
     account.balance -= 50
     assert account.balance == 50
 
 def test_account_with_history():
     account = AccountWithHistory(100)
+    account.hello()
     assert account.balance == 100
     account.balance -= 50
     account.balance += 25
