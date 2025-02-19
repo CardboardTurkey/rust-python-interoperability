@@ -17,7 +17,15 @@ from queue import Queue
 # - https://docs.python.org/3/library/threading.html
 # - https://docs.python.org/3/library/queue.html
 def word_count(text: str, n_threads: int) -> int:
-    pass
+    queue = Queue()
+    threads = []
+    for word in split_into_chunks(text, n_threads):
+        t = Thread(target=word_count_task, args=[word, queue])
+        t.start()
+        threads.append(t)
+    for t in threads:
+        t.join()
+    return sum([queue.get() for _ in range(len(threads))])
 
 
 # Compute the number of words in `text` and push the result into `result_queue`.
